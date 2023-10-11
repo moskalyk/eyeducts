@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+.center-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* 100% of the viewport height */
+}
+
+.svg-container {
+  display: flex;
+}
+
+.svg {
+  margin: 10px;
+}
+
+.svg img {
+  max-width: 100%;
+}
+
+.input-container {
+  text-align: center; /* Center the input horizontally */
+  margin-top: 20px; /* Add some space between the SVGs and the input */
+}
+
+input {
+  width: 100px;
+  height: 50px;
+  text-align: center; /* Center the input horizontally */
+}
