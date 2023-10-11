@@ -8,21 +8,18 @@ const Eyezz = () => {
   const [measurement, setMeasurement] = useState(0)
   React.useEffect(() => {
     let interval = setInterval(() => {
-      window.dispatchEvent(new Event("storage"))
-      console.log(measurement)
-      if(measurement != 0){
+      if(measurement != 0){;
         if(localStorage.getItem('nonce:log')=== null) localStorage.setItem('nonce:log', String(1))
         else localStorage.setItem('nonce:log', String(Number(localStorage.getItem('nonce:log'))+1))
-        localStorage.setItem(`list:${localStorage.getItem('nonce:log')}`, JSON.stringify({measurement: measurement, left: left }))
+        localStorage.setItem(`list:${localStorage.getItem('nonce:log')}`, JSON.stringify({measurement: measurement, left: right }))
       }
+      window.dispatchEvent(new Event("storage"))
       setMeasurement(0)
       setLeft(false)
       setRight(false)
     }, 7000)
-
-    return () => clearInterval(interval)
-  }, [measurement])
-
+    return () => clearInterval(interval);
+  }, [measurement]);
   return (
     <div className="center-container">
       <div className="svg-container">
@@ -41,29 +38,21 @@ const Eyezz = () => {
 }
 
 const Shelf = () => {
-
-  const [logList, setLogList] = useState([])
-
+  const [logList, setLogList] = useState([]);
   React.useEffect(() => {
     const listener = () => {
-
-      const nonceCID = localStorage.getItem("nonce:log") ? localStorage.getItem("nonce:log")! : 0
-      const listNames: any = []
-      console.log(nonceCID)
-      // iterate over localstorage cids
+      const nonceCID = localStorage.getItem("nonce:log") ? localStorage.getItem("nonce:log")! : 0;
+      const listNames: any = [];
       for(let i = 0; i < Number(nonceCID); i++){
         listNames.push(<li style={{cursor: 'pointer', margin: '10px'}}>{JSON.parse(localStorage.getItem(`list:${i+1}`)!).left ? 'L' : 'R'} {JSON.parse(localStorage.getItem(`list:${i+1}`)!).measurement}</li>)
       }
-
-      // set cids
-      setLogList(listNames)
+      setLogList(listNames);
     };
     window.addEventListener("storage", listener);
     return () => {
       window.removeEventListener("storage", listener);
     };
-  }, [])
-
+  }, []);
   return(
     <>
       <div style={{textAlign: 'center'}}>
