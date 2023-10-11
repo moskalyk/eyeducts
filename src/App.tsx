@@ -3,21 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 
 const Eyezz = () => {
-
   const [left, setLeft] = useState(false)
   const [right, setRight] = useState(false)
   const [measurement, setMeasurement] = useState(0)
-
   React.useEffect(() => {
     let interval = setInterval(() => {
       window.dispatchEvent(new Event("storage"))
-
       console.log(measurement)
       if(measurement != 0){
         if(localStorage.getItem('nonce:log')=== null) localStorage.setItem('nonce:log', String(1))
         else localStorage.setItem('nonce:log', String(Number(localStorage.getItem('nonce:log'))+1))
-      
-        localStorage.setItem(`list:${localStorage.getItem('nonce:log')}`, JSON.stringify({measurement: measurement, left: left ? left : right}))
+        localStorage.setItem(`list:${localStorage.getItem('nonce:log')}`, JSON.stringify({measurement: measurement, left: left }))
       }
       setMeasurement(0)
       setLeft(false)
@@ -26,8 +22,6 @@ const Eyezz = () => {
 
     return () => clearInterval(interval)
   }, [measurement])
-
-  
 
   return (
     <div className="center-container">
